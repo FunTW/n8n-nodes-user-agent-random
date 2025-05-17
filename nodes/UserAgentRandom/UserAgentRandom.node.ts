@@ -5,7 +5,6 @@ import {
 	NodeOperationError,
 	INodeExecutionData,
 	IDataObject,
-	NodeConnectionType,
 } from 'n8n-workflow';
 import { generateUserAgent } from './services/userAgent.service';
 
@@ -27,13 +26,13 @@ export class UserAgentRandom implements INodeType {
 		},
 		inputs: [
 			{
-				type: NodeConnectionType.Main,
+				type: 'main',
 				displayName: 'Input',
 			},
 		],
 		outputs: [
 			{
-				type: NodeConnectionType.Main,
+				type: 'main',
 				displayName: 'Output',
 			},
 		],
