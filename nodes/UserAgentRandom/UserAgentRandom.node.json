@@ -1,0 +1,22 @@
+{
+  "node": "n8n-nodes-user-agent-random.userAgentRandom",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": [
+    "Utility"
+  ],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://github.com/FunTW/n8n-nodes-user-agent-random"
+      }
+    ],
+    "credentialDocumentation": []
+  },
+  "integration": "userAgentRandom",
+  "subcategories": {
+    "Core Nodes": [
+      "Helpers"
+    ]
+  }
+} 
