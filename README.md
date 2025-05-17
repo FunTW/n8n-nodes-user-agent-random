@@ -13,10 +13,6 @@ This community node package provides random User-Agent functionality for n8n, he
 - Seamless integration with HTTP Request nodes
 - Uses n8n's latest declarative style node architecture
 
-## Release Notes
-
-This version removes all webhook-related functionality and randomization frequency options, focusing on generating and using random User-Agents within workflows. Added expanded User-Agent library and dynamic generation capabilities.
-
 ## Installation
 
 ### Community Nodes Installation (Recommended)
@@ -26,7 +22,7 @@ For most users, installing using n8n's community nodes feature is the simplest m
 1. Open your n8n instance
 2. Click on Settings button in the top right
 3. Select "Community Nodes"
-4. Search for "user-agent-random"
+4. Search for "n8n-nodes-user-agent-random"
 5. Click Install
 
 ### Install from Source
@@ -116,4 +112,4 @@ This node is developed using the declarative node style, fully compliant with n8
 
 ## License
 
-[MIT](https://github.com/FunTW/n8n-nodes-user-agent-random/blob/master/LICENSE.md) 
+[MIT](https://github.com/FunTW/n8n-nodes-user-agent-random/blob/main/LICENSE) 

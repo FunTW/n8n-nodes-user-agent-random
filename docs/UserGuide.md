@@ -1,106 +1,107 @@
-# User Agent Random 節點使用指南
+# User Agent Random Node User Guide
 
-本文檔提供有關如何使用 User Agent Random 節點的詳細說明。
+This document provides detailed instructions on how to use the User Agent Random node.
 
-## 概述
+## Overview
 
-User Agent Random 節點可以生成隨機的瀏覽器 User-Agent 字符串，用於 HTTP 請求。這在進行網頁爬蟲或 API 請求時非常有用，可以幫助避免被目標網站識別為自動化工具。
+The User Agent Random node generates random browser User-Agent strings for HTTP requests. This is particularly useful when performing web scraping or API requests, as it helps avoid being identified as an automated tool by target websites.
 
-## 基本配置
+## Basic Configuration
 
-在 n8n 工作流中添加 User Agent Random 節點後，您可以配置以下選項：
+After adding the User Agent Random node to an n8n workflow, you can configure the following options:
 
-### 1. 模式
+### 1. Mode
 
-- **隨機 (預定義庫)**：從內置的 User-Agent 庫中隨機選擇，包含了常見的桌面和移動瀏覽器。
-- **自定義**：允許您提供自己的 User-Agent 列表，節點將從中隨機選擇。
+- **Random (Predefined Library)**: Randomly selects from a built-in User-Agent library that includes common desktop and mobile browsers.
+- **Dynamic Generation**: Dynamically creates new User-Agent strings with randomized components.
+- **Custom**: Allows you to provide your own list of User-Agent strings, from which the node will randomly select.
 
-### 2. User-Agent 類型 (僅適用於"隨機"模式)
+### 2. User-Agent Type (only applicable to "Random" mode)
 
-- **桌面瀏覽器**：Chrome, Firefox, Safari, Edge 等桌面瀏覽器的 User-Agent。
-- **移動設備瀏覽器**：iOS 和 Android 設備上的移動瀏覽器 User-Agent。
-- **所有類型**：包含所有支持的瀏覽器類型。
+- **Desktop Browser**: User-Agents for desktop browsers like Chrome, Firefox, Safari, Edge, etc.
+- **Mobile Device Browser**: User-Agents for mobile browsers on iOS and Android devices.
+- **All Types**: Includes all supported browser types.
 
-### 3. 自定義 User-Agent 列表 (僅適用於"自定義"模式)
+### 3. Custom User-Agent List (only applicable to "Custom" mode)
 
-在此文本區域中，您可以輸入自己的 User-Agent 字符串列表，每行一個。例如：
+In this text area, you can enter your own list of User-Agent strings, one per line. For example:
 
 ```
 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
 ```
 
-### 4. 隨機化頻率
+### 4. Randomization Frequency
 
-- **每個請求**：每次執行節點時使用新的隨機 User-Agent。
-- **每個批次**：同一批次處理的所有項目使用相同的 User-Agent。
-- **每個工作流執行**：整個工作流執行期間使用相同的 User-Agent。
+- **Each Request**: Uses a new random User-Agent each time the node executes.
+- **Each Batch**: Uses the same User-Agent for all items processed in the same batch.
+- **Each Workflow Execution**: Uses the same User-Agent throughout the entire workflow execution.
 
-### 5. 輸出方式
+### 5. Output Method
 
-- **僅輸出 User-Agent**：僅返回生成的 User-Agent 字符串，替換原始輸入。
-- **添加為項目屬性**：將 User-Agent 添加為輸入項目的屬性，保留原始數據。
-- **創建完整的 HTTP 頭部**：創建包含 User-Agent 的完整 HTTP 頭部對象。
+- **User-Agent Only**: Returns only the generated User-Agent string, replacing the original input.
+- **Add as Item Property**: Adds the User-Agent as a property to the input item, preserving the original data.
+- **Create Full HTTP Headers**: Creates a complete HTTP header object that includes the User-Agent.
 
-## 使用場景
+## Use Cases
 
-### 1. 與 HTTP Request 節點結合使用
+### 1. Using with HTTP Request Node
 
-1. 添加 User Agent Random 節點
-2. 設置輸出方式為"創建完整的 HTTP 頭部"
-3. 將輸出連接到 HTTP Request 節點
-4. HTTP Request 節點將自動使用生成的隨機 User-Agent
+1. Add the User Agent Random node
+2. Set the output method to "Create Full HTTP Headers"
+3. Connect the output to an HTTP Request node
+4. The HTTP Request node will automatically use the generated random User-Agent
 
-### 2. 批量爬蟲請求
+### 2. Batch Scraping Requests
 
-1. 設置隨機化頻率為"每個批次"
-2. 使用 Split In Batches 節點將請求分批處理
-3. 每個批次將使用一個獨特的 User-Agent，同批次內的請求使用相同 User-Agent
+1. Set the randomization frequency to "Each Batch"
+2. Use the Split In Batches node to process requests in batches
+3. Each batch will use a unique User-Agent, while requests within the same batch use the same User-Agent
 
-### 3. 長時間運行的輪詢工作流
+### 3. Long-Running Polling Workflows
 
-1. 設置隨機化頻率為"每個工作流執行"
-2. 每次工作流執行都將使用一個新的隨機 User-Agent
+1. Set the randomization frequency to "Each Workflow Execution"
+2. Each workflow execution will use a new random User-Agent
 
-## 高級技巧
+## Advanced Techniques
 
-### 與代理服務器結合使用
+### Combining with Proxy Servers
 
-為最大程度減少被檢測或封鎖的風險，可以結合以下方法：
+To minimize the risk of being detected or blocked, you can combine the following methods:
 
-1. 使用 User Agent Random 節點生成隨機 User-Agent
-2. 使用 HTTP Proxy 節點或類似功能設置代理服務器
-3. 在重要請求之間添加隨機延遲
+1. Use the User Agent Random node to generate random User-Agents
+2. Use an HTTP Proxy node or similar functionality to set up a proxy server
+3. Add random delays between important requests
 
-### 自定義 User-Agent 最佳實踐
+### Custom User-Agent Best Practices
 
-建立自定義 User-Agent 列表時，請考慮以下建議：
+When creating a custom User-Agent list, consider these recommendations:
 
-1. 包含最近版本的主流瀏覽器
-2. 針對您的目標網站優化 User-Agent（某些網站可能對特定瀏覽器提供更好的體驗）
-3. 避免使用太多不同類型的 User-Agent，這可能看起來不自然
+1. Include recent versions of mainstream browsers
+2. Optimize User-Agents for your target website (some sites may provide better experiences for specific browsers)
+3. Avoid using too many different types of User-Agents, as this might appear unnatural
 
-## 常見問題解答
+## Frequently Asked Questions
 
-### Q: 自定義 User-Agent 列表為空時會發生什麼？
+### Q: What happens if the custom User-Agent list is empty?
 
-A: 如果您選擇了自定義模式但未提供任何 User-Agent，節點將自動使用預定義庫中的桌面瀏覽器 User-Agent，並記錄一條警告。
+A: If you select custom mode but don't provide any User-Agents, the node will automatically use desktop browser User-Agents from the predefined library and log a warning.
 
-### Q: 如何知道當前正在使用哪個 User-Agent？
+### Q: How can I know which User-Agent is currently being used?
 
-A: 您可以添加一個 Debug 節點來查看生成的 User-Agent 數據。
+A: You can add a Debug node to see the generated User-Agent data.
 
-### Q: 是否可以在工作流的不同部分使用不同的隨機 User-Agent？
+### Q: Can I use different random User-Agents in different parts of my workflow?
 
-A: 是的，您可以在工作流中的不同位置添加多個 User Agent Random 節點，每個節點可以有不同的配置。
+A: Yes, you can add multiple User Agent Random nodes at different locations in your workflow, each with different configurations.
 
-## 示例
+## Example
 
-以下是一個簡單的示例工作流：
+Here is a simple example workflow:
 
-1. Cron 節點 (每小時觸發)
-2. User Agent Random 節點 (設置為隨機桌面瀏覽器，每次工作流執行)
-3. HTTP Request 節點 (訪問目標網站)
-4. 處理響應數據...
+1. Cron node (triggers hourly)
+2. User Agent Random node (set to random desktop browser, each workflow execution)
+3. HTTP Request node (accesses target website)
+4. Process response data...
 
-以上配置將使工作流每小時執行一次，每次使用不同的桌面瀏覽器 User-Agent 訪問目標網站。 
+The above configuration will make the workflow run once per hour, accessing the target website with a different desktop browser User-Agent each time. 
